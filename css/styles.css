@@ -1,0 +1,202 @@
+
+:root{
+    --main-text-color: #6C63FF; 
+    --white-background : #fff ; 
+    --secondary-color : #2F2E41 ;
+}
+html{    font-family: 'Montserrat';
+}
+body{
+    padding: 0em 2em 1em 2em;
+}
+#logo{
+    padding: 0px;
+    width: 5em;
+    height: 5em;
+    margin: 1em 3em ; 
+}
+.main-header{
+    display: flex;
+    flex-direction: row;
+}
+.header-items{
+    margin-left: 3em;
+    padding: 0px;
+    display: flex;
+    align-items: center;
+}
+.header-items ul{
+    display: flex;
+    padding: 0px;
+    align-items: center ;
+}
+.header-items li{
+    display: flex;
+    margin-right: 4em;
+    font-size: 1.25em;
+    text-transform: capitalize;
+    color: var(--main-text-color);
+    cursor : pointer; 
+  
+}
+.header-items li a{
+    text-decoration: none;
+}
+
+.header-items li a:visited{
+    text-decoration: none;
+    color: var(--main-text-color);
+}
+
+.header-items li a:hover{
+    color: var(--secondary-color);
+}
+.authButtons{
+    flex-grow: 1 ;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-right: 1em;
+}
+.authButton{
+    background-color: var(--white-background);
+    color: var(--main-text-color);
+    border: 1px solid var(--main-text-color);
+    border-radius: 0px;
+    width: 6rem;
+    text-align: center;
+    text-decoration: none;
+    line-height: 1.75rem;
+    font-size: 1.25rem;
+    margin-right: 1em;
+    padding: 0.25rem  0.5rem;
+    text-transform: capitalize;
+    font-family: 'Montserrat';
+}
+.authButton:hover{
+    background-color: var(--secondary-color);
+    color: var(--white-background);
+    border: 1px solid var(--secondary-color);
+}
+.darkened{
+    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color);
+}
+.introSection{
+    display: flex;
+    flex-direction: row;
+    margin: 3em 3em;
+    align-items: center;
+    justify-content: space-around;
+}
+#introText{
+    font-weight: 300;
+    flex-shrink: 1;
+}
+#mainHeader{
+    font-size: 1.5rem;
+    color: var(--main-text-color);
+}
+#detailedHeader{
+    max-width: 25rem;
+    color: var(--secondary-color);
+    margin:  0rem 5rem 0 1rem;
+}
+
+#stressed{
+    width: 15rem;
+    height: 15rem;
+    
+}
+#presentationSection{
+    display: flex;
+    flex-direction:column ;
+    margin-top : 3em;
+}
+#presentaionImg{
+    width: 25rem;
+    height: 18rem;
+}
+#toolsCont{
+    font-size: 1.5rem;
+    color: var(--main-text-color);
+    line-height: 1.5em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20rem;
+}
+
+.toolSection{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    flex-grow : 1; 
+}
+.centeredText{
+    color: var(--main-text-color);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+.topToBotSec{
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+.leftToRight{
+    display: flex;
+    justify-content: center;
+}
+
+.rectCard{
+    background-color: var(--secondary-color);
+    color: var(--white-background);
+    margin: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1.5rem;
+    max-width: 15rem;
+    justify-content:space-between ;
+}
+.light{
+    background-color: var(--main-text-color);
+}
+.lightText{
+    color: var(--white-background);
+}
+.normal{
+    line-height: 1.25rem;
+    font-size: 1.25rem; 
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-transform: none;
+}
+.iconHeader{
+    display: flex;
+}
+.iconHeader img{
+    margin-right: 0.5rem ;
+}
+
+.card-svg{
+    width: 10em;
+    height: 12em;
+}
+
+@media (max-width: 800px) {
+    html{
+        font-size: 10px;
+    }
+
+}
+
+@media (max-width: 600px) {
+    html{
+        font-size: 8px;
+    }
+
+}
