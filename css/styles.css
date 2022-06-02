@@ -295,6 +295,50 @@ body{
 .cornerTool:hover .noMarginRecord{
     transform: scale(0.8 , 0.66666666666);
 }
+
+.authForms{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 21rem;
+}
+
+.authForms input{
+    width: 21rem;
+    height: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0.25rem;
+    border: solid 1px var(--main-text-color);
+ 
+}
+.authForms input:focus{
+    outline: none !important;
+    border: solid 1px var(--secondary-color);
+    border-radius: 0;
+
+}
+.authForms label{
+    display: inline-block;
+    align-self:  flex-start;
+    color: var(--main-text-color);
+    font-weight: 300;
+}
+.verticalRow{
+    margin-top: 0px;
+}
+#signup{
+    width: 21.75rem;
+    height: 2rem;
+    background-color: var(--main-text-color);
+    padding: 0.5rem;
+    color: var(--white-background);
+    font-weight: 300;
+}
+
+#signup:hover{
+    background-color: var(--secondary-color);
+}
+
 @keyframes grow {
     0% {
       min-height: 18rem;
