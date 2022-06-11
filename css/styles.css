@@ -311,6 +311,11 @@ body{
     border: solid 1px var(--main-text-color);
  
 }
+
+.disabled{
+    pointer-events: none;
+    background-color: grey !important;
+}
 .authForms input:focus{
     outline: none !important;
     border: solid 1px var(--secondary-color);
@@ -333,6 +338,7 @@ body{
     padding: 0.5rem;
     color: var(--white-background);
     font-weight: 300;
+    cursor: pointer;
 }
 
 #signup:hover{

@@ -10,11 +10,14 @@ const inputPassword = document.getElementById("password");
 const inputEmail = document.getElementById("email"); 
 signupButton.addEventListener('click',async (event)=>{
     event.preventDefault();
+    signupButton.disabled = true; 
+    signupButton.classList.add("disabled");
     if(inputName==null){
-        let postData = {
-            "email": inputEmail.value ,
-            "password": inputPassword.value
-        }
+        try{
+            let postData = {
+                "email": inputEmail.value ,
+                "password": inputPassword.value
+            }
         res = await fetch(baseUrl+loginUrl , {
             method: 'POST', 
             credentials: 'same-origin', 
@@ -24,9 +27,19 @@ signupButton.addEventListener('click',async (event)=>{
                 'Connection': 'keep-alive'
             },
             body : JSON.stringify(postData)
+
         }
         )
-        console.log("request output" , `${ await res.json()}`)
+        let userInfo =  await res.json(); 
+        localStorage.setItem('user', JSON.stringify(userInfo));
+        localStorage.setItem('loggedIn',"1");
+        window.location.href = "../html/tools.html";
+    }catch(e){
+        console.log(e)
+        signupButton.disabled = false; 
+        signupButton.classList.remove('disabled');
+
+    }
     }
     else{
    
@@ -35,6 +48,7 @@ signupButton.addEventListener('click',async (event)=>{
          "email": inputEmail.value ,
         "password": inputPassword.value
     }
+    try{
     res = await fetch(baseUrl +url , {
         method: 'POST', 
         credentials: 'same-origin', 
@@ -58,8 +72,12 @@ signupButton.addEventListener('click',async (event)=>{
             body : JSON.stringify({"confirmationCode": jsonRes.user.confirmationCode})
         })
     })
-        console.log(await confirmationRes.json())    
-
+        localStorage.setItem('user', JSON.stringify(JSON.stringify(jsonRes)));
+        localStorage.setItem('loggedIn',"1");
+        window.location.href = "../html/tools.html";
+    }
+     catch(e){
+         console.log(e)}
 }
 }) ; 
 
