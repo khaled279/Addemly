@@ -4,10 +4,14 @@
     --white-background : #fff ; 
     --secondary-color : #2F2E41 ;
 }
-html{    font-family: 'Montserrat';
+html{   
+     font-family: 'Montserrat';
+     height: 100%;   
 }
+
 body{
     padding: 0em 2em 1em 2em;
+    height: 100%;
 }
 #logo{
     padding: 0px;
@@ -72,6 +76,11 @@ body{
     padding: 0.25rem  0.5rem;
     text-transform: capitalize;
     font-family: 'Montserrat';
+}
+#userData{
+    text-decoration: none;
+    color: var(--main-text-color);
+    font-size: 1.25rem;
 }
 .authButton:hover{
     background-color: var(--secondary-color);
@@ -343,6 +352,47 @@ body{
 
 #signup:hover{
     background-color: var(--secondary-color);
+}
+
+
+/*
+
+workspace
+
+*/
+.workspace{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.backButton{
+    width: 3rem;
+    height: 3rem;
+}
+.recorder{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: end;
+}
+.tools{
+    min-width: 32rem;
+    min-height: 4rem;
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+    background-color: var(--secondary-color);
+    display: flex;
+    padding: 4px;
+    align-items: center;
+    justify-content: center;
+}
+
+.recorderButtons{
+    margin-inline: 0.5rem ;
+    cursor: pointer;
+}
+.rec{
+    display: none;
 }
 
 @keyframes grow {
