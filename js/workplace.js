@@ -61,7 +61,7 @@ record.onclick = function () {
                     clipContainer.appendChild(audio);
                     tools.appendChild(clipContainer);
                     notifier.style.display = "none"; 
-                    const blob = new Blob(chunks, { type: "audio/wav" });
+                    const blob = new Blob(chunks, { type: "audio/wav; codecs=PCM" });
                     chunks = [];
                     const audioURL = window.URL.createObjectURL(blob);
                     audio.src = audioURL;
