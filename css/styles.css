@@ -266,6 +266,7 @@ body{
     align-items: center;
     padding: 1em 0em;
     justify-content: space-evenly;
+    cursor: pointer;
 }
 .cornerTool:hover{
     transform: scale(1.25, 1.5);
@@ -366,8 +367,9 @@ workspace
     height: 100%;
 }
 .backButton{
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
 }
 .recorder{
     display: flex;
@@ -393,6 +395,15 @@ workspace
 }
 .rec{
     display: none;
+}
+
+.flexRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.timely{
+    flex:1 0 ;
 }
 
 @keyframes grow {

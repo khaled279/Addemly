@@ -3,10 +3,12 @@ const record = document.getElementById('record');
 const stopRecord = document.getElementById('stopRecord');
 const pauseRecord = document.getElementById('pauseRecord'); 
 const tools = document.getElementById("recordsBox");
+const backButton = document.querySelector(".backButton");
 let mediaRecorder = '';
 let browserStream = ""; 
 const baseUrl = "http://localhost:4000/" ; 
 const audioUp = "tasks/me/audio"; 
+const notifier = document.querySelector(".notifier");
          
           record.onclick = function () {
             
@@ -36,29 +38,35 @@ const audioUp = "tasks/me/audio";
                     audio.setAttribute("controls", "");
                     clipContainer.appendChild(audio);
                     tools.appendChild(clipContainer);
-                
+                    notifier.style.display = "none"; 
                     const blob = new Blob(chunks, { type: "audio/wav; codecs=wav" });
                     chunks = [];
                     const audioURL = window.URL.createObjectURL(blob);
                     audio.src = audioURL;
+                    console.log(audioURL);
                     console.log("I was called"); 
                     console.log(browserStream);
                     browserStream.getTracks().forEach(track => track.stop());
-                    let formData = new FormData(); 
+                    const formData = new FormData()
                     formData.append("audio",blob,"blob.wav");
-    
+                    for (const entries of formData.entries()) {
+                          console.log(entries);
+                    } 
                     const token =  JSON.parse(localStorage.getItem('user')).token ;
+                    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE0OTA1MGFiNjlkZDlmNDVhN2JjYmMiLCJpYXQiOjE2NTUwNTI4NDV9.yaIX8qmDuhfynLs66ZgEqXllaoK16Sx-6ZYdt-aKO-M"
                     console.log(token);
                     let response = await fetch(baseUrl+audioUp,{
                         method: 'POST', 
-                        credentials: 'same-origin', 
                         headers: {
                             'Authorization':token,
-                            'Content-type' : "multipart/form-data; boundary=SUI" ,
+                            // 'Content-type' : "multipart/form-data ; boundary:suii--" ,
                             'Accept' : '*/*', 
-                            'Connection': 'keep-alive'
-                        },
+                            'Connection': 'keep-alive',
+                            'Accept-Encoding': 'gzip, deflate, br', 
+                           },
+          
                         body : formData
+                      
                     } )
                     console.log(await response.json());
                 }
@@ -94,7 +102,9 @@ const audioUp = "tasks/me/audio";
             console.log("recorder stopped");
           };
         
-      
-  
+      backButton.addEventListener('click',()=>{
+        window.location.href = "../html/tools.html"; 
+      })
+    
 
 
