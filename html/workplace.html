@@ -13,7 +13,13 @@
     <div class="centeredRow"><img id="logo" src="../resources/svgs/logo.svg" alt="Website logo"></div>
     <div class="flexRow">
     <div class="timely" id="recordsBox">Record Box <div class="notifier"><br>You currnetly have not recorded anyrthing in this session</div></div>
-    <div class="timely">Timely tool</div>
+    <div class="timely">Timely tool <div id="addSection">
+        <input placeholder="section Title" type="text" name="section" id="sectionTitle" class="timerInput">
+        <input placeholder="time in minutess" type="number" name="time"  id="sectionTime" class="timerInput">  
+        <button id="addSectionBtn">Add section</button>
+        </div>
+    <div id="sectionsContainer"></div>   
+    </div>
     </div>
     <div class="recorder">
         <div class="tools">
@@ -22,7 +28,7 @@
             <img src="../resources/svgs/pause.svg" alt="pause button" class="recorderButtons rec" id="pauseRecord">
         </div>
     </div>
-   </div>
+
 <script src="../js/workplace.js"></script>
 </body>
 

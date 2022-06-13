@@ -389,6 +389,7 @@ workspace
     justify-content: center;
 }
 
+
 .recorderButtons{
     margin-inline: 0.5rem ;
     cursor: pointer;
@@ -405,7 +406,35 @@ workspace
 .timely{
     flex:1 0 ;
 }
+#addSection{
+    display: flex;
+    margin-top: 1rem;
+  
+}
 
+.timerInput{
+    flex: 0 1 0; 
+    background-color:var(--white-background) ;
+    color:  var(--main-text-color);
+    border: 01px solid var(--main-text-color); 
+    margin: 0 0.5rem;
+}
+#sectionTitle{
+    flex: 2 0 1;
+}
+
+
+#addSectionBtn{
+    
+    cursor: pointer;
+    background-color:var(--white-background) ;
+    color:  var(--main-text-color);
+    border: 01px solid var(--main-text-color); 
+}
+#addSectionBtn:hover{
+    background-color: var(--main-text-color);
+    color: var(--white-background) ; 
+    }
 @keyframes grow {
     0% {
       min-height: 18rem;

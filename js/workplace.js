@@ -9,8 +9,30 @@ let browserStream = "";
 const baseUrl = "http://localhost:4000/" ; 
 const audioUp = "tasks/me/audio"; 
 const notifier = document.querySelector(".notifier");
-         
-          record.onclick = function () {
+const addSectionBtn = document.getElementById("addSectionBtn");
+const sectionTitle = document.getElementById("sectionTitle");
+const sectionTime = document.getElementById("sectionTime");
+const sectionCont = document.getElementById("sectionsContainer"); 
+const sections = [];     
+        
+
+addSectionBtn.addEventListener('click',()=>{
+  let secId = "section"+sections.length ;  
+  sections.push({title : sectionTitle.value, 
+                  time : sectionTime.value,
+                  id : secId
+                }); 
+ const sectionHeader= document.createElement('p'); 
+ const time = document.createElement('p') ; 
+ sectionHeader.innerText ="Title: "+ sectionTitle.value
+ time.innerText ="Time: " +sectionTime.value; 
+ const section = document.createElement('div') ; 
+ section.append(sectionHeader); 
+ section.append(time); 
+ sectionCont.append(section); 
+  
+})        
+record.onclick = function () {
             
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             console.log("getUserMedia supported.");
@@ -39,7 +61,7 @@ const notifier = document.querySelector(".notifier");
                     clipContainer.appendChild(audio);
                     tools.appendChild(clipContainer);
                     notifier.style.display = "none"; 
-                    const blob = new Blob(chunks, { type: "audio/wav; codecs=wav" });
+                    const blob = new Blob(chunks, { type: "audio/wav" });
                     chunks = [];
                     const audioURL = window.URL.createObjectURL(blob);
                     audio.src = audioURL;
