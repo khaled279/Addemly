@@ -14,27 +14,80 @@ const sectionTitle = document.getElementById("sectionTitle");
 const sectionTime = document.getElementById("sectionTime");
 const sectionCont = document.getElementById("sectionsContainer"); 
 const sections = [];     
-        
+let timer = ''; 
+let counter = '';
+let counted = 0 ;
+let currentSec = 0 ; 
+
+
+function countDown(){
+  if(sections.length == 0) return ; 
+  let section = sections[currentSec];
+  totalSecs = section.totalSecs;   
+  let htmlsection =document.getElementById(`${section.id}`); 
+  htmlsection.classList.add('active');
+  timer = setInterval(function(){
+      let hours = Math.floor(totalSecs/3600); 
+      let mins = Math.floor((totalSecs-hours*3600)/60); 
+      let secs = totalSecs - mins*60 - hours*3600; 
+      htmlsection.querySelector('.timeParagraph').innerText= `${hours.toString().padStart(2,"00")}:${mins.toString().padStart(2,"00")}:${secs.toString().padStart(2,"00")}`;
+      totalSecs--;
+      if (totalSecs < 0) {
+          currentSec++;
+          clearInterval(timer);
+          htmlsection.classList.remove('active');
+          if(currentSec<sections.length){
+          countDown();
+        }else{
+          currentSec = 0;
+        }
+      }
+  }, 1000);
+
+}
+function countUp(){
+  
+}
+
 
 addSectionBtn.addEventListener('click',()=>{
   let secId = "section"+sections.length ;  
-  sections.push({title : sectionTitle.value, 
-                  time : sectionTime.value,
-                  id : secId
-                }); 
+
  const sectionHeader= document.createElement('p'); 
  const time = document.createElement('p') ; 
- sectionHeader.innerText ="Title: "+ sectionTitle.value
- time.innerText ="Time: " +sectionTime.value; 
+ sectionHeader.innerText = `${sections.length +1}. `+ sectionTitle.value
+ sectionHeader.style.textAlign ='center';
+ time.style.textAlign ='center'
+ let mins =  parseFloat(sectionTime.value) ;
+ console.log(mins);
+
+ let secs = Math.floor((mins-Math.floor(mins))*60) ; 
+ let hours = Math.floor(Math.floor(mins)/60); 
+ mins = Math.floor(mins-hours*60) ;
+ time.innerText =`${hours.toString().padStart(2,"00")}:${mins.toString().padStart(2,"00")}:${secs.toString().padStart(2,"00")}`; 
+ time.classList.add('timeParagraph')
  const section = document.createElement('div') ; 
+ section.classList.add('timerSection'); 
  section.append(sectionHeader); 
  section.append(time); 
+ section.id = secId; 
  sectionCont.append(section); 
+
+ sections.push({title : sectionTitle.value, 
+  min : mins,
+  sec: secs,
+  hour: hours,
+  totalSecs: sectionTime.value*60,
+  id : secId
+}); 
+
+console.log(sections[sections.length-1])
+
   
 })        
 record.onclick = function () {
-            
-        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  countDown();  
+          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             console.log("getUserMedia supported.");
             navigator.mediaDevices.getUserMedia(
                 {
@@ -128,5 +181,4 @@ record.onclick = function () {
         window.location.href = "../html/tools.html"; 
       })
     
-
 
