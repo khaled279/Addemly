@@ -12,6 +12,7 @@ html{
 body{
     padding: 0em 2em 1em 2em;
     height: 100%;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif ;
 }
 #logo{
     padding: 0px;
@@ -364,12 +365,15 @@ workspace
 .workspace{
     display: flex;
     flex-direction: column;
+    color: var(--main-text-color);
+    
     height: 100%;
 }
 .backButton{
     width: 2rem;
     height: 2rem;
     cursor: pointer;
+    position: fixed;
 }
 .recorder{
     display: flex;

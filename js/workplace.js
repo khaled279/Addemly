@@ -1,7 +1,6 @@
 console.log("linked")
 const record = document.getElementById('record'); 
 const stopRecord = document.getElementById('stopRecord');
-const pauseRecord = document.getElementById('pauseRecord'); 
 const tools = document.getElementById("recordsBox");
 const backButton = document.querySelector(".backButton");
 let mediaRecorder = '';
@@ -14,11 +13,15 @@ const sectionTitle = document.getElementById("sectionTitle");
 const sectionTime = document.getElementById("sectionTime");
 const sectionCont = document.getElementById("sectionsContainer"); 
 const recordCounter = document.getElementById("recordCounter"); 
+const resultContainer = document.getElementById("Results");
 const sections = [];     
 let timer = ''; 
 let counter = '';
 let counted = 0 ;
 let currentSec = 0 ; 
+let audios = []; 
+let responses = []; 
+let records =0; 
 
 
 function countDown(){
@@ -93,6 +96,7 @@ console.log(sections[sections.length-1])
   
 })        
 record.onclick = function () {
+  recordCounter.innerText = `00:00:00`;
   countDown(); 
   countUp(); 
           if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
@@ -114,10 +118,12 @@ record.onclick = function () {
                     const clipName = "Record"
                   
                     const clipContainer = document.createElement("article");
+                    clipContainer.id = `article${records}`; 
+                    clipContainer.style.display = 'flex'; 
+                    clipContainer.style.alignContent = 'center';
                     const clipLabel = document.createElement("p");
                     const audio = document.createElement("audio");
                     const deleteButton = document.createElement("button");
-                  
                     audio.setAttribute("controls", "");
                     clipContainer.appendChild(audio);
                     tools.appendChild(clipContainer);
@@ -126,9 +132,9 @@ record.onclick = function () {
                     chunks = [];
                     const audioURL = window.URL.createObjectURL(blob);
                     audio.src = audioURL;
-                    console.log(audioURL);
-                    console.log("I was called"); 
-                    console.log(browserStream);
+                    // console.log(audioURL);
+                    // console.log("I was called"); 
+                    // console.log(browserStream);
                     browserStream.getTracks().forEach(track => track.stop());
                     const formData = new FormData()
                     formData.append("audio",blob,"blob.wav");
@@ -137,7 +143,7 @@ record.onclick = function () {
                     } 
                     const token =  JSON.parse(localStorage.getItem('user')).token ;
                     // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE0OTA1MGFiNjlkZDlmNDVhN2JjYmMiLCJpYXQiOjE2NTUwNTI4NDV9.yaIX8qmDuhfynLs66ZgEqXllaoK16Sx-6ZYdt-aKO-M"
-                    console.log(token);
+                    // console.log(token);
                     let response = await fetch(baseUrl+audioUp,{
                         method: 'POST', 
                         headers: {
@@ -149,14 +155,39 @@ record.onclick = function () {
                            },
           
                         body : formData
+                      }).
+                    then(async (response)=>{
+                      const flipButton =document.createElement('a')
+                      flipButton.id = records ; 
+                      flipButton.innerText = 'See Results';
+                      flipButton.classList.add('authButton')
+                      flipButton.style.fontSize = '1rem';
+                      flipButton.href = "/result"; 
+                      flipButton.target = "__blank"
+                      let jsonRes = await response.json(); 
+                      responses.push({response: jsonRes
+                        ,time : counted
+                  });
+                      console.log(responses[records-1].time
+                           );
+              
+                      flipButton.onclick= ()=>{
+                       
+                        const resultsParagraph = document.createElement('p'); 
+                        resultsParagraph.innerText = `Total Words counts: ${jsonRes.WordCount} Metronome: ${jsonRes.WordCount/responses[flipButton.id-1].time} word/s`
+                        resultContainer.appendChild(resultsParagraph); 
+                      } ; 
+                      clipContainer.appendChild(flipButton);
+                      counted = 0;
                       
-                    } )
-                    console.log(await response.json());
+                      console.log('Records count' , records) 
+                     
+                    })
+                   
                 }
           
                 mediaRecorder.start();
                 stopRecord.style.display = 'block';
-                pauseRecord.style.display = 'block';
                 record.style.display = 'none'
                 console.log(mediaRecorder.state);
                 console.log("recorder started");
@@ -179,14 +210,13 @@ record.onclick = function () {
             console.log(mediaRecorder.state);
             mediaRecorder.stop();
             stopRecord.style.display = 'none';
-            pauseRecord.style.display = 'none';
             record.style.display = 'block'
             console.log(mediaRecorder.state);
             console.log("recorder stopped");
             clearInterval(timer);
             currentSec= 0 ; 
             clearInterval(counter); 
-            counted = 0; 
+            records++ ; 
           };
         
       backButton.addEventListener('click',()=>{
