@@ -162,8 +162,9 @@ record.onclick = function () {
                       flipButton.innerText = 'See Results';
                       flipButton.classList.add('authButton')
                       flipButton.style.fontSize = '1rem';
-                      flipButton.href = "/result"; 
+                      flipButton.href = "/html/result.html"; 
                       flipButton.target = "__blank"
+                      flipButton.rel = "noopener noreferrer"
                       let jsonRes = await response.json(); 
                       responses.push({response: jsonRes
                         ,time : counted
