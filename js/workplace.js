@@ -22,6 +22,7 @@ let currentSec = 0 ;
 let audios = []; 
 let responses = []; 
 let records =0; 
+let fullTime = 0 ;
 
 
 function countDown(){
@@ -90,10 +91,7 @@ addSectionBtn.addEventListener('click',()=>{
   totalSecs: sectionTime.value*60,
   id : secId
 }); 
-
-console.log(sections[sections.length-1])
-
-  
+fullTime +=  sectionTime.value*60; 
 })        
 record.onclick = function () {
   recordCounter.innerText = `00:00:00`;
@@ -162,13 +160,16 @@ record.onclick = function () {
                       flipButton.innerText = 'See Results';
                       flipButton.classList.add('authButton')
                       flipButton.style.fontSize = '1rem';
-                      flipButton.href = "../html/result.html"; 
+                      flipButton.href = "../html/result.html"+`?${records}`; 
                       flipButton.target = "__blank"
                       flipButton.rel = "noopener noreferrer"
                       let jsonRes = await response.json(); 
+                      console.log(jsonRes);
                       responses.push({response: jsonRes
-                        ,time : counted
-                  });
+                        ,time : counted , 
+                        targetTime : fullTime
+                  }); 
+                      localStorage.setItem('responses', JSON.stringify(responses));
                       console.log(responses[records-1].time
                            );
               
