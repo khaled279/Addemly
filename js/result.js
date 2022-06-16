@@ -51,6 +51,6 @@ document.querySelector("body").appendChild(script);
 function returFormattedTime(time){
     let hours = Math.floor(time/3600); 
     let mins = Math.floor((time-hours*3600)/60); 
-    let secs = time - mins*60 - hours*3600; 
+    let secs = Math.round(time - mins*60 - hours*3600); 
 return `${hours.toString().padStart(2,"00")}:${mins.toString().padStart(2,"00")}:${secs.toString().padStart(2,"00")}`;
 }

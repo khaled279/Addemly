@@ -466,6 +466,8 @@ workspace
     transform: scale(1.1,1.1);
     border: 1px solid var(--secondary-color);
     color: var(--main-text-color);
+    position: fixed;
+    right: 0;
 }
 .centeredLogo{
     display: flex;
@@ -525,11 +527,24 @@ li.active{
 
 }
 
+#aboutParagraph{
+    color: var(--main-text-color);
+    font-size: 1.25rem;
+    max-width: 40rem;
+    text-align: center;
+
+}
+
 #changePassword{
     min-width: 11.0625rem;
     min-height: 2rem;
 }
 
+#logoutButton{
+    color: var(--main-text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    cursor: pointer;
+}
 
 @keyframes grow {
     0% {

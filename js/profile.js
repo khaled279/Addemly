@@ -8,8 +8,31 @@ const password = document.getElementById('password');
 const baseUrl = "http://localhost:4000/"
 const endpoint = "users/me"
 const recordsEndpoints = "/myTrainings"; 
+const logoutEndpoint = "users/logout"
 const token =  JSON.parse(localStorage.getItem('user')).token
-
+const logo = document.getElementById('logo'); 
+const logout = document.getElementById('logoutButton'); 
+logout.addEventListener('click', ()=>{
+    let res = fetch(baseUrl + logoutEndpoint ,{
+        method: 'POST', 
+            credentials: 'same-origin', 
+            headers: {
+                'Content-type' : 'application/json',
+                'Accept' : '*/*', 
+                'Connection': 'keep-alive',
+                'Authorization':token
+            },
+        
+        }
+    ).then(async (res)=>{
+        localStorage.clear();
+        window.location.href = "../"
+    })
+})
+logo.style.cursor = "pointer";
+logo.addEventListener('click', ()=>{
+    window.location.href = "../";
+})
 editProfile.style.cursor = 'pointer';
 viewRecords.style.cursor = 'pointer';
 editProfile.addEventListener('click', ()=>{

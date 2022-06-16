@@ -22,6 +22,7 @@ let currentSec = 0 ;
 let audios = []; 
 let responses = []; 
 let records =0; 
+const Spinner = document.createElement('img'); 
 let fullTime = 0 ;
 // const file = document.getElementById('file');
 // const upload = document.getElementById('upload');
@@ -125,8 +126,12 @@ record.onclick = function () {
                     const clipLabel = document.createElement("p");
                     const audio = document.createElement("audio");
                     const deleteButton = document.createElement("button");
+                   
+                    Spinner.src = "../resources/images/Spinner.gif"; 
+
                     audio.setAttribute("controls", "");
                     clipContainer.appendChild(audio);
+                    clipContainer.appendChild(Spinner); 
                     tools.appendChild(clipContainer);
                     notifier.style.display = "none"; 
                     const blob = new Blob(chunks, { type: "audio/wav; codecs=PCM" });
@@ -225,6 +230,7 @@ record.onclick = function () {
         flipButton.onclick= ()=>{
         } ; 
         clipContainer.appendChild(flipButton);
+        Spinner.style.display = 'none'; 
         counted = 0;
         
         console.log('Records count' , records) 
@@ -251,9 +257,15 @@ record.onclick = function () {
         const audio = document.createElement("audio");
         const deleteButton = document.createElement("button");
         audio.setAttribute("controls", "");
+        Spinner.src = "../resources/images/Spinner.gif"; 
+        Spinner.width = "30" ; 
+        Spinner.height = "30"; 
         clipContainer.appendChild(audio);
+        clipContainer.appendChild(Spinner); 
         tools.appendChild(clipContainer);
         notifier.style.display = "none"; 
+
+
         const audioURL = fileReader.result ; 
         audio.src = URL.createObjectURL(wavRecord);
         audio.preload = "metadata"; 
