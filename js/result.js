@@ -7,7 +7,7 @@ const time = sessionData.time ;
 const targetTime = sessionData.targetTime ; 
 const serverFeedback = sessionData.response ; 
 const Metronome = serverFeedback.WordCount/(Math.floor(time/60)); 
-const fillerCount = serverFeedback.fillers.split(',').length ;  
+const fillerCount = serverFeedback.Fillers.split(',').length ;  
 const sentence = serverFeedback.Sentence ; 
 console.log(fillerCount);
 const metronomeElement= document.getElementById('resMetronome'); 
