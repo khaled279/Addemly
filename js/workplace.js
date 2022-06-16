@@ -214,6 +214,7 @@ record.onclick = function () {
           body : formData
         }).
       then(async (response)=>{
+        try{
         const flipButton =document.createElement('a')
         flipButton.id = records ; 
         flipButton.innerText = 'See Results';
@@ -240,7 +241,12 @@ record.onclick = function () {
         
         console.log('Records count' , records) 
        
-      })
+      }catch(e){
+        console.log(e)
+        clipContainer.appendChild(error);
+        Spinner.style.display = 'none'
+      }
+    })
       
       }catch(e){
         console.log(e); 

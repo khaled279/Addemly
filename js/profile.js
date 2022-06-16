@@ -73,10 +73,15 @@ changePassword.addEventListener('click',()=>{
             "password" : password.value})
         }
     ).then(async (res)=>{
-        console.log( await res.json()) ; 
+        try{
+        if(res.status != 200) throw new Error(); 
+        }catch(e){
+            console.log(e); 
+            editProfileForm.appendChild(error); 
+        }
     })
 }catch(e){
-    console.log(e); 
+    console.log("Caught",e); 
     editProfileForm.appendChild(error); 
 }
 
