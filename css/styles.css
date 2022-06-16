@@ -7,7 +7,6 @@
     --red :  #FF7276 ; 
 }
 html{   
-     font-family: 'Montserrat';
      height: 100%;   
 }
 
@@ -78,7 +77,6 @@ body{
     margin-right: 1em;
     padding: 0.25rem  0.5rem;
     text-transform: capitalize;
-    font-family: 'Montserrat';
 }
 #userData{
     text-decoration: none;
@@ -545,6 +543,26 @@ li.active{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     cursor: pointer;
 }
+
+.tipsPage{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.tipsPage div{
+    flex: 1 1 60%;
+    color: var(--secondary-color);
+    padding: 1rem 10rem;
+
+}
+
+.tipsPage div:nth-child(1){
+  font-size: 1.25rem;
+}
+.tipsPage h1{
+    color: var(--main-text-color);
+}
+
 
 @keyframes grow {
     0% {
