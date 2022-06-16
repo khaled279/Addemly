@@ -23,6 +23,8 @@ let audios = [];
 let responses = []; 
 let records =0; 
 let fullTime = 0 ;
+// const file = document.getElementById('file');
+// const upload = document.getElementById('upload');
 
 
 function countDown(){
@@ -118,6 +120,7 @@ record.onclick = function () {
                     const clipContainer = document.createElement("article");
                     clipContainer.id = `article${records}`; 
                     clipContainer.style.display = 'flex'; 
+                    clipContainer.style.padding = '0.5rem'
                     clipContainer.style.alignContent = 'center';
                     const clipLabel = document.createElement("p");
                     const audio = document.createElement("audio");
@@ -134,58 +137,12 @@ record.onclick = function () {
                     // console.log("I was called"); 
                     // console.log(browserStream);
                     browserStream.getTracks().forEach(track => track.stop());
-                    const formData = new FormData()
-                    formData.append("audio",blob,"blob.wav");
-                    for (const entries of formData.entries()) {
-                          console.log(entries);
-                    } 
                     const token =  JSON.parse(localStorage.getItem('user')).token ;
+                    uploadBlob(blob,token,clipContainer,null); 
+                  
                     // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmE0OTA1MGFiNjlkZDlmNDVhN2JjYmMiLCJpYXQiOjE2NTUwNTI4NDV9.yaIX8qmDuhfynLs66ZgEqXllaoK16Sx-6ZYdt-aKO-M"
                     // console.log(token);
-                    let response = await fetch(baseUrl+audioUp,{
-                        method: 'POST', 
-                        headers: {
-                            'Authorization':token,
-                            // 'Content-type' : "multipart/form-data ; boundary:suii--" ,
-                            'Accept' : '*/*', 
-                            'Connection': 'keep-alive',
-                            'Accept-Encoding': 'gzip, deflate, br', 
-                           },
-          
-                        body : formData
-                      }).
-                    then(async (response)=>{
-                      const flipButton =document.createElement('a')
-                      flipButton.id = records ; 
-                      flipButton.innerText = 'See Results';
-                      flipButton.classList.add('authButton')
-                      flipButton.style.fontSize = '1rem';
-                      flipButton.href = "../html/result.html"+`?${records}`; 
-                      flipButton.target = "__blank"
-                      flipButton.rel = "noopener noreferrer"
-                      let jsonRes = await response.json(); 
-                      console.log(jsonRes);
-                      responses.push({response: jsonRes
-                        ,time : counted , 
-                        targetTime : fullTime
-                  }); 
-                      localStorage.setItem('responses', JSON.stringify(responses));
-                      console.log(responses[records-1].time
-                           );
-              
-                      flipButton.onclick= ()=>{
-                       
-                        const resultsParagraph = document.createElement('p'); 
-                        resultsParagraph.innerText = `Total Words counts: ${jsonRes.WordCount} Metronome: ${jsonRes.WordCount/responses[flipButton.id-1].time} word/s`
-                        resultContainer.appendChild(resultsParagraph); 
-                      } ; 
-                      clipContainer.appendChild(flipButton);
-                      counted = 0;
-                      
-                      console.log('Records count' , records) 
                      
-                    })
-                   
                 }
           
                 mediaRecorder.start();
@@ -226,3 +183,86 @@ record.onclick = function () {
       })
     
 
+    async function uploadBlob(blob,token ,clipContainer,audio){
+      console.log(audio);
+      if(audio){
+        counted = audio.duration; 
+        console.log(audio.duration);
+      }
+      const formData = new FormData()
+      formData.append("audio",blob,"blob.wav"); 
+      let response = await fetch(baseUrl+audioUp,{
+          method: 'POST', 
+          headers: {
+              'Authorization':token,
+              // 'Content-type' : "multipart/form-data ; boundary:suii--" ,
+              'Accept' : '*/*', 
+              'Connection': 'keep-alive',
+              'Accept-Encoding': 'gzip, deflate, br', 
+             },
+
+          body : formData
+        }).
+      then(async (response)=>{
+        const flipButton =document.createElement('a')
+        flipButton.id = records ; 
+        flipButton.innerText = 'See Results';
+        flipButton.classList.add('authButton')
+        flipButton.style.fontSize = '1rem';
+        flipButton.href = "../html/result.html"+`?${records}`; 
+        flipButton.target = "__blank"
+        flipButton.rel = "noopener noreferrer"
+        let jsonRes = await response.json(); 
+        console.log(jsonRes);
+        responses.push({response: jsonRes
+          ,time : counted , 
+          targetTime : fullTime
+    }); 
+        localStorage.setItem('responses', JSON.stringify(responses));
+        console.log(responses[records-1].time
+             );
+
+        flipButton.onclick= ()=>{
+        } ; 
+        clipContainer.appendChild(flipButton);
+        counted = 0;
+        
+        console.log('Records count' , records) 
+       
+      })
+   
+      }
+
+      upload.addEventListener('click', () => {
+        console.log('clicked the upload button!');
+        let wavRecord = file.files[0]; 
+        let fileReader = new FileReader(); 
+        fileReader.addEventListener('load', ()=>{
+          
+         
+        })
+        // fileReader.readAsDataURL(wavRecord);
+        const clipContainer = document.createElement("article");
+        clipContainer.id = `article${records}`; 
+        clipContainer.style.display = 'flex'; 
+        clipContainer.style.padding = '0.5rem'
+        clipContainer.style.alignContent = 'center';
+        const clipLabel = document.createElement("p");
+        const audio = document.createElement("audio");
+        const deleteButton = document.createElement("button");
+        audio.setAttribute("controls", "");
+        clipContainer.appendChild(audio);
+        tools.appendChild(clipContainer);
+        notifier.style.display = "none"; 
+        const audioURL = fileReader.result ; 
+        audio.src = URL.createObjectURL(wavRecord);
+        audio.preload = "metadata"; 
+        // audio.play(); 
+        // audio.muted =true; 
+        audio.onloadedmetadata = function() {
+            counted =audio.duration ; 
+      };
+        const token =  JSON.parse(localStorage.getItem('user')).token ;
+        records++ ; 
+        uploadBlob(wavRecord,token ,clipContainer, audio); 
+})

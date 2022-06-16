@@ -8,6 +8,7 @@ const targetTime = sessionData.targetTime ;
 const serverFeedback = sessionData.response ; 
 const Metronome = serverFeedback.WordCount/(Math.floor(time/60)); 
 const fillerCount = serverFeedback.fillers.split(',').length ;  
+const sentence = serverFeedback.Sentence ; 
 console.log(fillerCount);
 const metronomeElement= document.getElementById('resMetronome'); 
 const timeElement= document.getElementById('resultTime'); 
@@ -18,6 +19,8 @@ metronomeElement.innerText = Metronome;
 timeElement.innerText = returFormattedTime(time); 
 fillerElement.innerText = fillerCount; 
 trgElement.innerText = returFormattedTime(targetTime); 
+const sentenceHolder = document.getElementById("sentence"); 
+sentenceHolder.innerHTML = sentence ; 
 
 script.src = 'https://www.gstatic.com/charts/loader.js'; 
 script.addEventListener('load', function() {

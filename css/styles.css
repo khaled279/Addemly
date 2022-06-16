@@ -4,6 +4,7 @@
     --white-background : #fff ; 
     --secondary-color : #2F2E41 ;
     --nice-grey : 	#DCDCDC; 
+    --red :  #FF7276 ; 
 }
 html{   
      font-family: 'Montserrat';
@@ -484,6 +485,16 @@ workspace
 }
 .smallStat p{
     margin: 00.5rem;
+}
+.resultStats{
+    display: flex;
+}
+#sentence{
+    flex: 1 1 80;
+    padding: 1rem;
+}
+#sentence span{
+    background-color: var(--red);
 }
 @keyframes grow {
     0% {
