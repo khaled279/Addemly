@@ -230,7 +230,7 @@ record.onclick = function () {
         console.log('Records count' , records) 
        
       })
-   
+      
       }
 
       upload.addEventListener('click', () => {
