@@ -563,6 +563,10 @@ li.active{
     color: var(--main-text-color);
 }
 
+.error{
+    color: var(--red);
+}
+
 
 @keyframes grow {
     0% {

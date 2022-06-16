@@ -26,6 +26,10 @@ const Spinner = document.createElement('img');
 let fullTime = 0 ;
 // const file = document.getElementById('file');
 // const upload = document.getElementById('upload');
+const error = document.createElement('p'); 
+error.classList.add("error"); 
+error.innerText = "Couldn't upload" ; 
+
 
 
 function countDown(){
@@ -189,6 +193,7 @@ record.onclick = function () {
     
 
     async function uploadBlob(blob,token ,clipContainer,audio){
+      try{
       console.log(audio);
       if(audio){
         counted = audio.duration; 
@@ -237,7 +242,11 @@ record.onclick = function () {
        
       })
       
+      }catch(e){
+        console.log(e); 
+        clipContainer.appendChild(error); 
       }
+    }
 
       upload.addEventListener('click', () => {
         console.log('clicked the upload button!');

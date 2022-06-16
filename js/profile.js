@@ -12,7 +12,13 @@ const logoutEndpoint = "users/logout"
 const token =  JSON.parse(localStorage.getItem('user')).token
 const logo = document.getElementById('logo'); 
 const logout = document.getElementById('logoutButton'); 
+
+const error = document.createElement('p'); 
+error.classList.add("error"); 
+error.innerText = "Network Error" ; 
+
 logout.addEventListener('click', ()=>{
+    try{
     let res = fetch(baseUrl + logoutEndpoint ,{
         method: 'POST', 
             credentials: 'same-origin', 
@@ -28,6 +34,10 @@ logout.addEventListener('click', ()=>{
         localStorage.clear();
         window.location.href = "../"
     })
+}catch(e){
+    console.log(e); 
+    editProfileForm.appendChild(error); 
+}
 })
 logo.style.cursor = "pointer";
 logo.addEventListener('click', ()=>{
@@ -49,6 +59,7 @@ viewRecords.addEventListener('click', ()=>{
 }); 
 
 changePassword.addEventListener('click',()=>{
+    try{
     let res = fetch(baseUrl + endpoint ,{
         method: 'PATCH', 
             credentials: 'same-origin', 
@@ -64,4 +75,9 @@ changePassword.addEventListener('click',()=>{
     ).then(async (res)=>{
         console.log( await res.json()) ; 
     })
+}catch(e){
+    console.log(e); 
+    editProfileForm.appendChild(error); 
+}
+
 }); 

@@ -8,6 +8,12 @@ let confirmationRes = "" ;
 const inputName = document.getElementById("name"); 
 const inputPassword = document.getElementById("password");
 const inputEmail = document.getElementById("email"); 
+const form = document.querySelector('.authForms')
+const error = document.createElement('p'); 
+error.classList.add("error"); 
+error.innerText = "Couldn't sign"
+
+
 signupButton.addEventListener('click',async (event)=>{
     event.preventDefault();
     signupButton.disabled = true; 
@@ -38,7 +44,7 @@ signupButton.addEventListener('click',async (event)=>{
         console.log(e)
         signupButton.disabled = false; 
         signupButton.classList.remove('disabled');
-
+        form.appendChild(error)
     }
     }
     else{
@@ -71,13 +77,18 @@ signupButton.addEventListener('click',async (event)=>{
             },
             body : JSON.stringify({"confirmationCode": jsonRes.user.confirmationCode})
         })
-    })
+    }
+    
+    
+    )
         localStorage.setItem('user', JSON.stringify(JSON.stringify(jsonRes)));
         localStorage.setItem('loggedIn',"1");
         window.location.href = "../html/tools.html";
     }
      catch(e){
-         console.log(e)}
+         console.log(e)
+         form.appendChild(error)
+        }
 }
 }) ; 
 
